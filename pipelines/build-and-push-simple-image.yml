@@ -6,23 +6,21 @@ resources:
   icon: github
   source:
     uri: https://github.com/concourse/examples.git
-    branch: master
+    branch: oci-test
 
 # Where we will push the image
-- name: simple-image
+- name: ubuntu-image
   type: registry-image
   icon: docker
   source:
-    # You need to provide these variables when
-    # setting the pipeline
-    repository: ((image-repo-name))/simple-image
-    username: ((registry-username))
-    password: ((registry-password))
+    repository: ubuntu
 
 jobs:
 - name: build-and-push
   plan:
-  - get: concourse-examples
+  - in_parallel:
+    - get: concourse-examples
+    - get: ubuntu-image
   - task: build-task-image
     privileged: true
     config:
@@ -35,12 +33,11 @@ jobs:
           repository: vito/oci-build-task
       inputs:
       - name: concourse-examples
+      - name: ubuntu-image
+        path: concourse-examples/Dockerfiles/ubuntu
       outputs:
       - name: image
       params:
         CONTEXT: concourse-examples/Dockerfiles/simple
       run:
         path: build
-  - put: simple-image
-    params:
-      image: image/image.tar
