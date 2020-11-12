@@ -34,7 +34,7 @@ jobs:
       inputs:
       - name: concourse-examples
       - name: ubuntu-image
-        path: concourse-examples/Dockerfiles/ubuntu
+        path: concourse-examples/Dockerfiles/simple/ubuntu
       outputs:
       - name: image
       params:
