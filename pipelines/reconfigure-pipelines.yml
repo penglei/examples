@@ -3,9 +3,18 @@ resources:
   type: git
   icon: github
   source:
-    uri: https://github.com:penglei/examples.git
+    uri: https://github.com/penglei/examples.git
+
 
 jobs:
+
+- name: configure-self
+  plan:
+  - get: concourse-gitops-examples
+    trigger: true
+  - set_pipeline: self
+    file: concourse-gitops-examples/pipelines/reconfigure-pipelines.yml
+
 - name: configure-pipelines
   public: true
   plan:
@@ -14,3 +23,4 @@ jobs:
 
     - set_pipeline: hello-world
       file: concourse-gitops-examples/pipelines/hello-world.yml
+
