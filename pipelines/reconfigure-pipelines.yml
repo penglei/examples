@@ -3,14 +3,14 @@ resources:
   type: git
   icon: github
   source:
-    uri: git@github.com:penglei/examples.git
+    uri: https://github.com:penglei/examples.git
 
 jobs:
 - name: configure-pipelines
   public: true
   plan:
-    - get: concourse-examples
+    - get: concourse-gitops-examples
       trigger: true
 
     - set_pipeline: hello-world
-      file: concourse-examples/pipelines/hello-world.yml
+      file: concourse-gitops-examples/pipelines/hello-world.yml
