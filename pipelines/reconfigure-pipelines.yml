@@ -20,7 +20,7 @@ jobs:
   plan:
     - get: concourse-gitops-examples
       trigger: true
-
+      passed: [configure-self]
     - set_pipeline: hello-world
       file: concourse-gitops-examples/pipelines/hello-world.yml
 
