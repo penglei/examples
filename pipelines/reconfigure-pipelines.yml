@@ -23,4 +23,5 @@ jobs:
       passed: [configure-self]
     - set_pipeline: hello-world
       file: concourse-gitops-examples/pipelines/hello-world.yml
-
+    - set_pipeline: time-triggered
+      file: concourse-gitops-examples/pipelines/time-triggered.yml
